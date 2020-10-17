@@ -4,7 +4,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('../db');
+const db = require('../db/postgres/index.js');
+// const db = require('../db');
 
 const app = express();
 
