@@ -8,8 +8,8 @@ var counter = 1;
 
 const dataGen = () => {
 
-  writer.pipe(fs.createWriteStream('./db/postgres/seed/data/restaurants.csv'));
-    for (let i = 0; i < 10000000; i++) {
+  writer.pipe(fs.createWriteStream('./db/postgres/seed/data/restaurants1.csv'));
+    for (let i = 0; i <= 1500000; i++) {
     // for (let i = 0; i < 10; i++) {
     const randromNumFor50Food = Math.floor(Math.random() * 50);
     writer.write({

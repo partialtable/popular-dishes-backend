@@ -12,12 +12,11 @@ function randomDate(start, end) {
 
 const randromNumFor50 = Math.floor(Math.random() * 50);
 
-var counter = 1;
 
 const dataGen = () => {
-  writer.pipe(fs.createWriteStream('./db/postgres/seed/data/users.csv'));
-  // for (let i = 0; i < 10000000; i++) {
-  for (let i = 0; i < 10; i++) {
+  writer.pipe(fs.createWriteStream('./db/postgres/seed/data/users1.csv'));
+  for (let i = counter; i < 3000001; i++) {
+  // for (let i = 0; i < 10; i++) {
     writer.write({
       user_id: counter++,
       name: faker.internet.userName(),
