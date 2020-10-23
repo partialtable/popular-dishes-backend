@@ -1,3 +1,5 @@
+//dishes_by_restaurant
+
 const fs = require('fs');
 const csvWriter = require('csv-write-stream');
 const writer = csvWriter();
@@ -14,14 +16,15 @@ var counter = 12500001;
 
 const dataGen = () => {
 
-  writer.pipe(fs.createWriteStream('./db/postgres/seed/data/dishes6.csv'));
+  writer.pipe(fs.createWriteStream('./db/cassandra/seed/data/dishes6.csv'));
   for (let i = counter; i < 15000001; i++) {
-    // for (let i = counter; i < 10; i++) {
     let randromNumFor50 = Math.floor(Math.random() * 50);
     let randromNumForDish = Math.floor(Math.random() * 880);
+    let randromNum = Math.floor(Math.random() * 1000);
     writer.write({
-      dish_id: counter++,
       restaurant_id: faker.random.number({ min: 1, max: 10000000 }),
+      dish_id: counter++,
+      restaurant_name: dishes.restaurantName[randromNum],
       dish_name: dishes.dishNames[randromNumForDish],
       ingredients: dishes.dishIngr[randromNumFor50],
       picture_url: `https://dishestkout.s3-us-west-1.amazonaws.com/${randromNumFor50 + 1}.jpeg`
@@ -32,4 +35,5 @@ const dataGen = () => {
   writer.end();
   console.log('popularDishTable.csv generation complete')
 }
+
 dataGen();

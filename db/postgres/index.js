@@ -33,4 +33,43 @@ console.log('db connected');
 //   }
 // });
 
-module.export = client;
+const getAllDishes = (restrId, cb) => {
+  const sql = `select * from dishes where restaurant_id = ${restrId};`;
+  client.query(sql, (err, result) => {
+    if (err) {
+      cb(err);
+      return;
+    }
+    cb(null, result);
+  });
+};
+
+const getDishReviews = (dishIds, cb) => {
+  const sql = `select * from reviews where dish_id in (${dishIds.join(',')});`;
+  client.query(sql, (err, result) => {
+    if (err) {
+      cb(err);
+      return;
+    }
+    cb(null, result);
+  });
+};
+
+const getUsers = (usersIds, cb) => {
+  const sql = `select * from users where user_id in (${usersIds.join(',')});`;
+  client.query(sql, (err, result) => {
+    if (err) {
+      cb(err);
+      return;
+    }
+    cb(null, result);
+  });
+};
+
+module.exports = {
+  db: client,
+  getAllDishes,
+  getDishReviews,
+  getUsers,
+};
+

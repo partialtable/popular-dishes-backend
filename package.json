@@ -14,7 +14,10 @@
     "seed-pg-dish": "node db/postgres/seed/popularDishGen.js",
     "seed-pg-review": "node db/postgres/seed/dishReviewGen.js",
     "seed-pg-user": "node db/postgres/seed/userGen.js",
-    "start-postgres": "node db/postgres/index.js"
+    "start-postgres": "node db/postgres/index.js",
+    "seed-cs-dish": "node db/cassandra/seed/popularDishesByRestGen.js",
+    "seed-cs-review": "node db/cassandra/seed/reviewsByDishesGen.js",
+    "start-cassandra": "node db/cassandra/index.js"
   },
   "author": "Jenny Park",
   "license": "ISC",
