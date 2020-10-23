@@ -1,6 +1,7 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
+const newRelic = require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');

@@ -76,3 +76,17 @@ COPY users(user_id, name, avatar_url, first_name, last_name, phone, email) FROM 
 COPY reviews(review_id, dish_id, user_id, review, dined_on, stars, user_status) FROM '/Users/jinyeongpark/Documents/0_HRSF130_Aug/W8-10_SDC/popular-dishes-backend/db/postgres/seed/data/reviews1.csv' DELIMITER ',' CSV HEADER;
 
 COPY reviews(review_id, dish_id, user_id, review, dined_on, stars, user_status) FROM '/Users/jinyeongpark/Documents/0_HRSF130_Aug/W8-10_SDC/popular-dishes-backend/db/postgres/seed/data/reviews2.csv' DELIMITER ',' CSV HEADER;
+
+
+
+COPY reviews(review_id, dish_id, user_id, review, dined_on, stars, user_status) FROM '/Users/jinyeongpark/Documents/0_HRSF130_Aug/W8-10_SDC/popular-dishes-backend/db/postgres/seed/data/reviews3.csv' DELIMITER ',' CSV HEADER;
+
+COPY reviews(review_id, dish_id, user_id, review, dined_on, stars, user_status) FROM '/Users/jinyeongpark/Documents/0_HRSF130_Aug/W8-10_SDC/popular-dishes-backend/db/postgres/seed/data/reviews4.csv' DELIMITER ',' CSV HEADER;
+
+COPY reviews(review_id, dish_id, user_id, review, dined_on, stars, user_status) FROM '/Users/jinyeongpark/Documents/0_HRSF130_Aug/W8-10_SDC/popular-dishes-backend/db/postgres/seed/data/reviews5.csv' DELIMITER ',' CSV HEADER;
+
+COPY reviews(review_id, dish_id, user_id, review, dined_on, stars, user_status) FROM '/Users/jinyeongpark/Documents/0_HRSF130_Aug/W8-10_SDC/popular-dishes-backend/db/postgres/seed/data/reviews6.csv' DELIMITER ',' CSV HEADER;
+
+COPY reviews(review_id, dish_id, user_id, review, dined_on, stars, user_status) FROM '/Users/jinyeongpark/Documents/0_HRSF130_Aug/W8-10_SDC/popular-dishes-backend/db/postgres/seed/data/reviews7.csv' DELIMITER ',' CSV HEADER;
+
+COPY reviews(review_id, dish_id, user_id, review, dined_on, stars, user_status) FROM '/Users/jinyeongpark/Documents/0_HRSF130_Aug/W8-10_SDC/popular-dishes-backend/db/postgres/seed/data/reviews8.csv' DELIMITER ',' CSV HEADER;

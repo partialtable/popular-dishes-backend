@@ -10,11 +10,11 @@ const dishes = require('./dishes.js');
 // var counter = 7500001;
 // var counter = 10000001;
 var counter = 12500001;
-
+// var counter = 15000001;
 
 const dataGen = () => {
 
-  writer.pipe(fs.createWriteStream('./db/postgres/seed/data/dishes6.csv'));
+  writer.pipe(fs.createWriteStream('./db/postgres/seed/data/dishes8.csv'));
   for (let i = counter; i < 15000001; i++) {
     // for (let i = counter; i < 10; i++) {
     let randromNumFor50 = Math.floor(Math.random() * 50);

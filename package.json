@@ -14,6 +14,7 @@
     "seed-pg-dish": "node db/postgres/seed/popularDishGen.js",
     "seed-pg-review": "node db/postgres/seed/dishReviewGen.js",
     "seed-pg-user": "node db/postgres/seed/userGen.js",
+    "load-csv-pg-review": "node db/postgres/seed/copyCSVReview.js",
     "start-postgres": "node db/postgres/index.js",
     "seed-cs-dish": "node db/cassandra/seed/popularDishesByRestGen.js",
     "seed-cs-review": "node db/cassandra/seed/reviewsByDishesGen.js",
@@ -28,10 +29,14 @@
     "csv-write-stream": "^2.0.0",
     "express": "^4.15.4",
     "faker": "^5.1.0",
+    "fs": "0.0.1-security",
     "jquery": "^3.2.1",
     "mysql": "^2.14.1",
+    "newrelic": "^6.13.2",
     "nodemon": "^2.0.4",
     "pg": "^8.4.1",
+    "pg-copy-streams": "^5.1.1",
+    "pg-promise": "^10.7.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-modal": "^3.11.2",
@@ -60,4 +65,3 @@
     "webpack-cli": "^3.3.0"
   }
 }
-

@@ -1,41 +1,27 @@
-const { Client } = require('pg')
+const pgp = require('pg-promise')(/* options*/);
+const db = pgp('postgres://jinyeongpark:@/dishes_service');
+// db.one('SELECT $1 AS value', 123)
+db.one('SELECT * FROM dishes WHERE dishes.dish_id=9000002;')
+  .then(function (data) {
+    console.log('DATA:', data)
+  })
+  .catch(function (error) {
+    console.log('ERROR:', error)
+  })
 
-const client = new Client({
-  user: 'jinyeongpark',
-  host: 'localhost',
-  database: 'dishes_service',
-  password: '1234',
+// Database connection details;
+// const cn = {
+//   host: 'localhost', // 'localhost' is the default;
+//   port: 5432, // 5432 is the default;
+//   database: 'dishes_service',
+//   user: 'jinyeongpark',
+//   password: '1234'
+// };
 
-})
-
-client.connect()
-console.log('db connected');
-// var connectionString = "postgres://postgres:postgres@localhost:5432/database";
-
-// const client = new Client({
-//   connectionString: connectionString
-// });
-
-
-// query example1
-// client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
-//   console.log(err ? err.stack : res.rows[0].message) // Hello World!
-//   client.end()
-// })
-
-// // // query example2 - dishes_service
-// client.query('CREATE DATABASE dishes_service;', (err, res) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log('Created sample dishes_service DB');
-//     console.log(res);
-//   }
-// });
 
 const getAllDishes = (restrId, cb) => {
   const sql = `select * from dishes where restaurant_id = ${restrId};`;
-  client.query(sql, (err, result) => {
+  db.query(sql, (err, result) => {
     if (err) {
       cb(err);
       return;
@@ -46,7 +32,7 @@ const getAllDishes = (restrId, cb) => {
 
 const getDishReviews = (dishIds, cb) => {
   const sql = `select * from reviews where dish_id in (${dishIds.join(',')});`;
-  client.query(sql, (err, result) => {
+  db.query(sql, (err, result) => {
     if (err) {
       cb(err);
       return;
@@ -57,7 +43,7 @@ const getDishReviews = (dishIds, cb) => {
 
 const getUsers = (usersIds, cb) => {
   const sql = `select * from users where user_id in (${usersIds.join(',')});`;
-  client.query(sql, (err, result) => {
+  db.query(sql, (err, result) => {
     if (err) {
       cb(err);
       return;
@@ -67,7 +53,7 @@ const getUsers = (usersIds, cb) => {
 };
 
 module.exports = {
-  db: client,
+  db: db,
   getAllDishes,
   getDishReviews,
   getUsers,
