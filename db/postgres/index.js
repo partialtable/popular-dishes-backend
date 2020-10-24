@@ -1,36 +1,88 @@
-const { Client } = require('pg')
+// ver1
+const { Client } = require('pg');
+var connectionString = "postgres://jinyeongpark:@/dishes_service";
+// var connectionString = "postgresql://172.17.0.2:5432/carousel";
 
 const client = new Client({
-  user: 'jinyeongpark',
-  host: 'localhost',
-  database: 'dishes_service',
-  password: '1234',
+    connectionString: connectionString
+});
 
-})
+const db = client.connect()
 
-client.connect()
-console.log('db connected');
-// var connectionString = "postgres://postgres:postgres@localhost:5432/database";
+client.connect((err) => {
+  if (err) {
+    console.log('error occured', err)
+  } else {
+    console.log('db connencted')
+  }
+});
 
-// const client = new Client({
-//   connectionString: connectionString
-// });
+// console.log('postgres db connected');
 
 
-// query example1
-// client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
-//   console.log(err ? err.stack : res.rows[0].message) // Hello World!
-//   client.end()
-// })
+// // // ver2
+// const pgp = require('pg-promise')(/* options*/);
+// const dbConnection = pgp('postgres://jinyeongpark:@/dishes_service');
+// // db.one('SELECT $1 AS value', 123)
+// dbConnection.one('SELECT * FROM dishes WHERE dishes.dish_id=9000002;')
+//   .then(function (data) {
+//     console.log('postgres db is connected and getting the data')
+//   })
+//   .catch(function (error) {
+//     console.log('ERROR:', error)
+//   })
 
-// // // query example2 - dishes_service
-// client.query('CREATE DATABASE dishes_service;', (err, res) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log('Created sample dishes_service DB');
-//     console.log(res);
-//   }
-// });
+// Database connection details;
+// const cn = {
+//   host: 'localhost', // 'localhost' is the default;
+//   port: 5432, // 5432 is the default;
+//   database: 'dishes_service',
+//   user: 'jinyeongpark',
+//   password: '1234'
+// };
 
-module.export = client;
+
+// const getAllDishes = (restrId, cb) => {
+//   // console.log('DB getAllDishes restrId', restrId)
+//   const q = `select * from dishes where restaurant_id = ${restrId};`;
+//   dbConnection.query(q, (err, result) => {
+//     if (err) {
+//       cb(err);
+//       return;
+//     }
+//     console.log('getAllDishes, result', result)
+//     cb(null, result);
+//   });
+// };
+
+// const getDishReviews = (dishIds, cb) => {
+//   const q = `select * from reviews where dish_id in (${dishIds.join(',')});`;
+//   dbConnection.query(q, (err, result) => {
+//     if (err) {
+//       cb(err);
+//       return;
+//     }
+//     cb(null, result);
+//   });
+// };
+
+// const getUsers = (usersIds, cb) => {
+//   const q = `select * from users where user_id in (${usersIds.join(',')});`;
+//   dbConnection.query(q, (err, result) => {
+//     if (err) {
+//       cb(err);
+//       return;
+//     }
+//     cb(null, result);
+//   });
+// };
+
+// module.exports = {
+//   // db: db,
+//   // dbConnection,
+//   // getAllDishes,
+//   // getDishReviews,
+//   // getUsers,
+// };
+
+module.exports = db;
