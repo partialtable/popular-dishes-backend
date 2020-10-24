@@ -88,6 +88,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    console.log('componentDidMount WORKING?')
     var id;
     if (window.location.href.split('/')[3] === '') {
       id = Math.floor(Math.random() * 100);
@@ -98,8 +99,9 @@ class App extends React.Component {
   }
 
   getAllDishes(restrId) {
+    consoloe.log('inside')
     // axios.get(`/api/dishes/restaurant/${restrId}`)
-    axios.get(`/api/restaurants/${restrId}/dishes/`)
+    axios.get(`/api/restaurants/${restrId}/dishes`)
       .then((result) => {
         console.log('result', result)
         this.setState({
