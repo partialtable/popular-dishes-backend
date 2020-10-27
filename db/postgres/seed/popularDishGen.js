@@ -17,19 +17,19 @@ const dishes = require('./dishes.js');
 // var counter = 25000001;
 // var counter = 27500001;
 // var counter = 30000001;
-var counter = 32500001;
+// var counter = 32500001;
 // var counter = 35000001;
 // var counter = 37500001;
 // var counter = 40000001;
 // var counter = 42500001;
 // var counter = 45000001;
-// var counter = 47500001;
+var counter = 47500001;
 // 50000001;
 
 const dataGen = () => {
 
-  writer.pipe(fs.createWriteStream('./db/postgres/seed/data/dishes14.csv'));
-  for (let i = counter; i < 35000001; i++) {
+  writer.pipe(fs.createWriteStream('./db/postgres/seed/data/dishes20.csv'));
+  for (let i = counter; i < 50000001; i++) {
     // for (let i = counter; i < 10; i++) {
     let randromNumFor50 = Math.floor(Math.random() * 50);
     let randromNumForDish = Math.floor(Math.random() * 880);

@@ -24,8 +24,9 @@ app.use(express.static(path.join(__dirname, '/../client/dist')));
 app.get('/api/restaurants/:restaurantId/dishes/', (req, res) => {
 
 
-  const finalResponse = {};
+  // const finalResponse = {};
   db.getAllDishes(req.params.restaurantId, (err, data) => {
+    // console.log('req.params.restaurantId', req.params.restaurantId)
     if (err) {
       console.log(err.sqlMessage);
       res.end('Error quering the database');
@@ -35,48 +36,26 @@ app.get('/api/restaurants/:restaurantId/dishes/', (req, res) => {
       //   res.status(422).send('invalid restaurand id');
       //   return;
       // }
-      console.log('SERVER App getAllDishes getting data', data)
+      // console.log('SERVER App getAllDishes getting data', data.rows)
 
 
-      res.status(200).send(data);
-      finalResponse.dishes = {};
-      finalResponse.users = {};
-      const dishIdArray = [];
-      const usersIdArray = [];
-      // loop over data, to fill dishes property on finalResponse obj
-      for (const d in data) {
-        const dish = data[d];
-        finalResponse.dishes[dish.id] = dish;
-        // create a property where reviews will be stored
-        dish.reviews = {};
-        dishIdArray.push(dish.id);
-      }
-      db.getDishReviews(dishIdArray, (errReviews, dataReviews) => {
-        if (errReviews) {
-          console.log(errReviews.sqlMessage);
-          res.end('Error quering from the database');
-        } else {
-          // loop over reviwes data and add a review to reviews property on every dish object
-          for (const r in dataReviews) {
-            const review = dataReviews[r];
-            usersIdArray.push(review.user_id);
-            finalResponse.dishes[review.dish_id].reviews[review.id] = review;
-          }
-          // get Users once usersIdArray is available
-          db.getUsers(usersIdArray, (errUsers, dataUsers) => {
-            if (errUsers) {
-              console.log(errReviews.sqlMessage);
-              res.end('Error quering from the database');
-            } else {
-              for (const u in dataUsers) {
-                const user = dataUsers[u];
-                finalResponse.users[user.id] = user;
-              }
-              res.status(200).send(finalResponse);
-            }
-          });
-        }
-      });
+      res.status(200).send(data.rows);
+    }
+  });
+});
+
+app.post('/api/restaurants/:restaurantId/dishes/', (req, res) => {
+
+  // const finalResponse = {};
+  db.createDish(req.params.restaurantId, (err, data) => {
+    console.log('req.params.restaurantId', req.params.restaurantId)
+    if (err) {
+      console.log(err.sqlMessage);
+      res.end('Error quering the database');
+    } else {
+
+      console.log('SERVER App getAllDishes getting data')
+      res.status(200).send('post success');
     }
   });
 });

@@ -10,12 +10,23 @@ export const options = {
     error_rate: ['rate < 0.1'],
   },
   stages: [
-    { duration: '30s', target: 50 },
-    { duration: '1m', target: 100 },
-    { duration: '30s', target: 150 },
-    { duration: '1m', target: 200 },
-    { duration: '30s', target: 0 },
+    { duration: "10s", target: 500 },
+    { duration: "10s", target: 500 },
+    { duration: "5s", target: 2000 },
+    { duration: "30s", target: 2000 }
+
+    // { duration: "10s", target: 600 },
+    // { duration: "10s", target: 600 },
+    // { duration: "5s", target: 1000 },
+    // { duration: "15s", target: 1000 }
+
+    // { duration: "1m", target: 200 },
+    // { duration: "2m", target: 500 },
+    // { duration: "3m", target: 1000 },
+    // { duration: "1m", target: 200 },
+    // { duration: "30s", target: 50 },
   ],
+
   ext: {
     loadimpact: {
       distribution: {
@@ -27,37 +38,71 @@ export const options = {
 export default function main() {
   let restaurantId = Math.floor(Math.random() * (10000000)) + 1;
 
+  // GET
   let res = http.get(`http://localhost:3003/api/restaurants/${restaurantId}/dishes`);
-  // Automatically added sleep
 
+  // Automatically added sleep
   errorRate.add(res.status >= 400)
-  sleep(1);
+  sleep(.1);
 }
 
 
 
 
 
+// ver2
 // import http from 'k6/http';
-// import { sleep } from 'k6';
+// import { check, sleep } from 'k6';
+// import { Rate, Trend } from 'k6/metrics';
 
-// export let options = {
-//   stages: [
-//     { duration: '30s', target: 50 },
-//     { duration: '1m', target: 10 },
-//     { duration: '30s', target: 50 },
-//     { duration: '1m', target: 20 },
-//     { duration: '30s', target: 5 },
-//     // { duration: '1s', target: 50 },
-//     // { duration: '30s', target: 1000 },
-//     // { duration: '60s', target: 1750 },
-//   ],
-// };
+// export let restaurantTrend = new Trend('GET /api/restaurants Response Time (ms)');
+// export let restaurantErrorRate = new Rate('GET /api/restaurants Error Rate');
 
-// export default function () {
-//   let restaurantId = Math.floor(Math.random() * (10000000)) + 1;
-//   http.get(`http://localhost:3003/api/restaurants/${restaurantId}/dishes`);
-//   sleep(1);
+// // ramp up/down the number of users
+// const stages1k = [
+//   { duration: "30s", target: 200 },
+//   { duration: "1m", target: 500 },
+//   { duration: "2m", target: 1000 },
+//   { duration: "1m", target: 500 },
+//   { duration: "30s", target: 200 },
+// ];
+
+// const stages100 = [
+//   { duration: "30s", target: 20 },
+//   { duration: "1m", target: 50 },
+//   { duration: "2m", target: 100 },
+//   { duration: "1m", target: 50 },
+//   { duration: "30s", target: 20 },
+// ];
+
+// const stages10 = [
+//   { duration: "30s", target: 2 },
+//   { duration: "1m", target: 5 },
+//   { duration: "2m", target: 10 },
+//   { duration: "1m", target: 5 },
+//   { duration: "30s", target: 2 },
+// ];
+
+// const stages1 = [
+//   { duration: "30s", target: 1 },
+// ];
+
+// export const options = {
+//   stages: stages1k,
 // }
 
-// k6 run script.js
+// export default function() {
+//   // GET a random restaurant from the server
+//   const restaurantId = Math.floor(Math.random() * (10000000)) + 1;;
+//   const urlRestaurants = `http://localhost:3003/api/restaurants/${restaurantId}/dishes`;
+
+//   const restaurantResp = http.get(urlRestaurants);
+
+//   check(restaurantResp, {
+//     'status is 200': r => r.status === 200
+//   }) || restaurantErrorRate.add(1);
+
+//   restaurantTrend.add(restaurantResp.timings.duration);
+
+//   sleep(1);
+// }
