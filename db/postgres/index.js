@@ -1,88 +1,57 @@
-// ver1
-const { Client } = require('pg');
-var connectionString = "postgres://jinyeongpark:@/dishes_service";
-// var connectionString = "postgresql://172.17.0.2:5432/carousel";
+// ver1 - pool -- improve query speed?
+const { Pool } = require('pg')
 
-const client = new Client({
-    connectionString: connectionString
-});
+var connectionString = "postgres://jinyeongpark:@/dishes_service2";
 
-const db = client.connect()
+const pool = new Pool({
+  connectionString: connectionString
+})
+// the pool will emit an error on behalf of any idle clients
+// it contains if a backend error or network partition happens
+pool.on('error', (err, client) => {
+  console.error('Unexpected error on idle client', err)
+  process.exit(-1)
+})
+// callback - checkout a client
+pool.connect((err) => {
+      if (err) {
+        console.log('error occured', err)
+      } else {
+        console.log('db connencted')
+      }
+})
 
-client.connect((err) => {
-  if (err) {
-    console.log('error occured', err)
-  } else {
-    console.log('db connencted')
-  }
-});
+module.exports= pool;
 
-// console.log('postgres db connected');
+// ver2 - client
+// const { Client } = require('pg');
 
+// // const cn = {
+// //   host: 'localhost', // 'localhost' is the default;
+// //   port: 5432, // 5432 is the default;
+// //   database: 'dishes_service2',
+// //   user: 'jinyeongpark',
+// //   password: '1234'
+// // };
 
-// // // ver2
-// const pgp = require('pg-promise')(/* options*/);
-// const dbConnection = pgp('postgres://jinyeongpark:@/dishes_service');
-// // db.one('SELECT $1 AS value', 123)
-// dbConnection.one('SELECT * FROM dishes WHERE dishes.dish_id=9000002;')
-//   .then(function (data) {
-//     console.log('postgres db is connected and getting the data')
-//   })
-//   .catch(function (error) {
-//     console.log('ERROR:', error)
-//   })
-
-// Database connection details;
-// const cn = {
-//   host: 'localhost', // 'localhost' is the default;
-//   port: 5432, // 5432 is the default;
-//   database: 'dishes_service',
-//   user: 'jinyeongpark',
-//   password: '1234'
-// };
+// // const client = new Client(cn);
 
 
-// const getAllDishes = (restrId, cb) => {
-//   // console.log('DB getAllDishes restrId', restrId)
-//   const q = `select * from dishes where restaurant_id = ${restrId};`;
-//   dbConnection.query(q, (err, result) => {
+// // another way to setup
+// var connectionString = "postgres://jinyeongpark:@/dishes_service2";
+
+// const client = new Client({
+//   connectionString: connectionString
+// });
+
+// client.connect((err) => {
 //     if (err) {
-//       cb(err);
-//       return;
+//       console.log('error occured', err)
+//     } else {
+//       console.log('db connencted')
 //     }
-//     console.log('getAllDishes, result', result)
-//     cb(null, result);
-//   });
-// };
+// })
 
-// const getDishReviews = (dishIds, cb) => {
-//   const q = `select * from reviews where dish_id in (${dishIds.join(',')});`;
-//   dbConnection.query(q, (err, result) => {
-//     if (err) {
-//       cb(err);
-//       return;
-//     }
-//     cb(null, result);
-//   });
-// };
+// // const db = client.connect()
 
-// const getUsers = (usersIds, cb) => {
-//   const q = `select * from users where user_id in (${usersIds.join(',')});`;
-//   dbConnection.query(q, (err, result) => {
-//     if (err) {
-//       cb(err);
-//       return;
-//     }
-//     cb(null, result);
-//   });
-// };
-
-// module.exports = {
-//   // db: db,
-//   // dbConnection,
-//   // getAllDishes,
-//   // getDishReviews,
-//   // getUsers,
-// };
-
-module.exports = db;
+// module.exports= client;
