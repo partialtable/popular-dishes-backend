@@ -27,11 +27,6 @@ if (cluster.isMaster) {
     console.log(`listening on port ${port}`);
   });
 
-
-// app.get('/:id', (req, res) => {
-//   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
-// });
-// single api call to get all the data about dishes reviews and users of a particular restaurant
 app.get('/api/restaurants/:restaurantId/dishes/', (req, res) => {
 
   db.getAllDishes(req.params.restaurantId, (err, data) => {
