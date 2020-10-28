@@ -27,5 +27,5 @@ avatars/
 dishesImg/
 
 data/
-newrelic.js
+# newrelic.js
 newrelic_agent.log
