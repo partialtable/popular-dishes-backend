@@ -15,6 +15,7 @@ if (cluster.isMaster) {
   const app = express();
   const port = 3003;
 
+  app.use('/loaderio-3684e81cb3056d4ed482f335965ce36a.txt', express.static(path.join(__dirname, '/../loaderio-3684e81cb3056d4ed482f335965ce36a.txt')));
   app.use(express.static(path.join(__dirname, '/../client/dist')));
 
   app.use(bodyParser.json());
