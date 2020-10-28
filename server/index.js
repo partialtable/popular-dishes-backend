@@ -34,7 +34,7 @@ if (cluster.isMaster) {
 app.get('/api/restaurants/:restaurantId/dishes/', (req, res) => {
 
   db.getAllDishes(req.params.restaurantId, (err, data) => {
-    // console.log('req.params.restaurantId', req.params.restaurantId)
+
     if (err) {
       console.log(err.sqlMessage);
       res.end('Error quering the database');
